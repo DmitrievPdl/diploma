@@ -1,0 +1,136 @@
+\section{Конечная цепочка состояний Вернера}
+Рассмотрим задачу поиска границ истинной сцепленности смешанных состояний аналитическим методом.
+Похожая техника определения теоретических границ была в статье \cite{Contreras_Tejada_2022}, только там рассматривали изотропные состояния, но аналогичные рассуждения, как мы увидим в дальнейшем, можно применить и для состояния Вернера.
+
+Рассмотрим \textbf{состояния Вернера} \cite{PhysRevA.40.4277} - семейство состояний на пространстве $\mathbb{C}^d\otimes\mathbb{C}^d$, которые инвариантные относительно унитарных преобразований $U \otimes U$, $\rho_{wer} = (U \otimes U)\rho_{wer} (U^{\dag} \otimes U^{\dag})$. Семейство можно параметризовать следующим образом
+\begin{equation}\label{def-werner-state}
+    \rho_{wer}(p,d) = \frac1{d^2 + pd}\left(\mathbb{1} + p\sum_{i,\,j=0}^{d-1}\,\ket{i,\,j}\bra{j,\,i}\right),
+\end{equation}
+где $d$ - размерность и $p \in [-1, 1]$ - вещественны параметр состояния.
+Теоретические границы сепарабельности и сцепленности данного состояния известны
+\begin{table}[ht]
+\centering
+\begin{tabular}{ l | c }
+  сепарабельно & $ -1 \leq p \leq -\frac{1}{d}$ \\
+  \hline
+  сцеплено & $ -\frac{1}{d} \leq p \leq -1$ \\
+\end{tabular}
+\caption{Границы сцепленности и сепарабельности для состояния Вернера}
+\label{table:theor-bound-werner}
+\end{table}
+Дальнейшая цель найти границы для системы произвольного количества состояний Вернера, которые образуют цепочку. 
+
+Заметим, что \ref{def-werner-state} можно представить в следующем виде
+\begin{equation}
+\begin{split}
+& \rho_{wer}(p, d) = 
+    \frac{1}{d^2 + pd}
+    \left(
+    (1 + p) \mathbb{1} - 2p \Pi_{\mathcal A} 
+    \right) = \\
+& = \frac{1}{d^2 - pt}
+    \left(
+    (1 - t) \mathbb{1} + 2t \Pi_{\mathcal A} 
+    \right)  \\
+\end{split}
+\end{equation}
+где $t = -p$ замена переменной и $\Pi_{\mathcal A} = \frac{\mathbb{1}-\mathrm{SWAP}}2$ проектор на антисимметричное подпространство пространства $\mathbb{C}^d\otimes\mathbb{C}^d$ и $\mathrm{SWAP} = \sum_{i,\,j=0}^{d-1}\,\ket{i,\,j}\bra{j,\,i}$ оператор, который меняет местами кубиты.
+
+\begin{figure}[h]
+\center{
+    \begin{overpic}[width=0.6\textwidth]{img/werner-chain.png}
+    \end{overpic}
+}
+\caption{Цепочка из $N$ состояний Вернера.}
+\label{img:werner-chain}
+\end{figure}
+Рассмотрим цепочку из $N$ состояний Вернера.
+Матрица плотности данного состояния будет иметь следующий вид
+\begin{equation}
+\begin{split}
+& \rho_{chain} = \rho_1 \otimes ... \otimes \rho_N = \\
+& = \frac{1}{d^2 - td}
+((1 - t) \mathbb{1} + 2t\Pi_{\mathcal A})
+\otimes ... \otimes 
+\frac{1}{d^2 - td}
+((1 - t) \mathbb{1} + 2t\Pi_{\mathcal A}).
+\end{split}
+\end{equation}
+Раскроем произведения, сгруппировав слагаемые
+\begin{equation}
+\begin{split}
+& \rho_{chain} = 
+\left(\frac{2t}{d^2 - td}\right)^N \Pi_{\mathcal A} \otimes ... \otimes \Pi_{\mathcal A}
++
+\sum\limits_{i_1 = 1}^{N} \frac{(1-t)(2t)^{N-1}}{(d^2 - 2t)^N} \mathbb{1}^{i_1} \otimes \prod_{j \neq i_1} \otimes \Pi_{\mathcal A}^{j} + \\
+&
++\sum\limits_{i_1, i_2 = 1, i_1 \neq i_2}^{N} \frac{(1-t)^2(2t)^{N-2}}{(d^2 - 2t)^N} \mathbb{1}^{i_1} \otimes \mathbb{1}^{i_2} \otimes \prod_{j \neq i_1,i_2} \otimes \Pi_{\mathcal A}^{j}  + ...,
+\end{split}
+\end{equation}
+где $i_k$ и $j$ нумеруют порядок произведении кронекера. Далее заметим, что все слагаемые с двумя или более единичными операторами $\mathbb{1}$ являются бисепарабельными.
+Действительно, можно выбрать бипартицию, которая будет делить состояние не две части.
+Каждая из этих частей будет начинаться с единичного оператора.
+Относительно такой бипартици будет выполнено условие бисепарабельности \ref{bisep-state-def}.
+Причем в данном случае формула будет содержать одно слагаемое $p=1$.
+Поэтому их можно отбросить, заменив их на $\rho^{bs}$.
+
+В итоге получим следующее выражение для матрицы плотности цепочки
+\begin{equation}
+\begin{split}
+& \rho_{chain} = 
+\left(\frac{2t}{d^2 - td}\right)^N \Pi_{\mathcal A} \otimes ... \otimes \Pi_{\mathcal A}
++
+\sum\limits_{i_1 = 1}^{N} \frac{(1-t)(2t)^{N-1}}{(d^2 - 2t)^N} \mathbb{1}^{i_1} \otimes \prod_{j \neq i_1} \otimes \Pi_{\mathcal A}^{j} + \rho^{bs}.
+\end{split}
+\end{equation}
+Задача свелась к исследованию сцепленности для первых двух слагаемых.
+В дальнейшем будем отбрасывать дополнительны индекс $i_1 = i$, так как $i$ будет встречаться только один раз.
+Покажем, что их сумму можно свести к сумме состояний Вернера.
+Действительно, внесем первое слагаемое под сумму и вынесем общие операторы проекции $\Pi_{\mathcal A}$ за скобку 
+\begin{equation}
+\begin{split}
+& \rho_{chain} = 
+\sum\limits_{i=1}^{i=N}
+\left[
+\frac{1}{N}\left(\frac{2t}{d^2 - td}\right)^N
+\Pi_{\mathcal A}^{i} + 
+\frac{(1-t)(2t)^{N-1}}{(d^2 - 2t)^N} \mathbb{1}^{i}
+\right] 
+\otimes \prod_{j \neq i} \otimes \Pi_{\mathcal A}^{j} + \rho^{bs}.
+\end{split}
+\end{equation}
+В центре квадратных скобок получили, с точностью до коэффициентов, состояние Вернера. Справа идет произведение кронекера с операторами проекции $\Pi_{\mathcal A}$ на антисимметричное пространство, которое является сцепленным. Обозначим его как $\rho^{ent}$. Тогда мы придем к более простому виду матрицы плотности
+\begin{equation}\label{rho-chain-end}
+\begin{split}
+& \rho_{chain} = 
+\sum\limits_{i=1}^{i=N}
+\left[
+\frac{1}{N}\left(\frac{2t}{d^2 - td}\right)^N
+\Pi_{\mathcal A}^{i} + 
+\frac{(1-t)(2t)^{N-1}}{(d^2 - 2t)^N} \mathbb{1}^{i}
+\right] \otimes
+\rho^{ent} + \rho^{bs}.
+\end{split}
+\end{equation}
+
+В итоге задача свелась к определению сцепленности выражения в квадратных скобках \ref{rho-chain-end}.
+Если оно окажется сепарабельным, то и $\rho_{chain}$ окажется бисепарабельным. В противном случае, $\rho_{chain}$ окажется истинно сцепленным.
+Как уже упоминалось, выражение в квадратных скобках \ref{rho-chain-end} представляет собой, с точностью до коэффициентов, состояние Вернера. Вынесем общий коэффициент $\frac{(2t)^{N-1}}{(d^2 - td)^N}$, который является положительным, согласно условию на допустимые параметры $p\in[-1,1]$ и определению $t = -p$, и не влияет на сцепленность
+\begin{equation}
+\begin{split}
+& \frac{2t}{N} \Pi_{\mathcal A} + (1-t)\mathbb{1} = \frac{2t}{N} \left( \frac{\mathbb{1} - \mathrm{SWAP}}{2} \right) + (1-t)\mathbb{1} = \\
+& = \left( 1-t + \frac{t}{N}\right) \mathbb{1} - \frac{t}{N} \mathrm{SWAP} \sim \\
+& \sim \mathbb{1} - \frac{t}{N( 1-t + \frac{t}{N})} \mathrm{SWAP}.
+\end{split}
+\end{equation}
+В итоге мы получили, с точностью до коэффициента нормировки, состояние Вернера.
+Задача свелась к исследованию границ бисепарабельности для данного состояния.
+Используя таблицу \ref{table:theor-bound-werner} с теоретическими границами  для состояния Вернера, определяем граничное значение для цепочки
+\begin{equation}
+    \frac{t}{N( 1-t + \frac{t}{N})} = \frac{1}{d}
+\end{equation}
+Вернёмся снова к параметру $p = -t$ и выразим границу через него
+\begin{equation}\label{sep-bound}
+    p_{bound} = - \frac{N}{N + d - 1}.
+\end{equation}
+Для всех $p < p_{bound}$ цепочка из $N$ состояний Вернера является сцепленной.
