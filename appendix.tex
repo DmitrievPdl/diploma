@@ -1,0 +1,49 @@
+\section{Частичное транспонирование.}
+\label{appendix:partial_transpose}
+Частичное транспонирование означает транспонирование по отношению к одной из подсистем. Рассмотрим пример, пусть матрица $\rho$ задает матрицу плотности для двух подсистем $H_A \otimes H_B$, тогда ее можно представить в виде $\rho = \sum\limits_{ijkl} p_{kl}^{ij} \ket{i}\bra{j} \otimes \ket{k} \bra{l}$. Тогда частичное транспонирование матрицы плотности $\rho$ относительно второй подсистемы $B$ можно будет записать с помощью оператора частичного транспонирования $\rho^{T_B} = (I \otimes T_B) \rho = \sum\limits_{ijkl} \ket{i}\bra{j} \otimes (\ket{k} \bra{l})^{T} =  \sum\limits_{ijkl} \ket{i}\bra{j} \otimes \ket{l} \bra{k}$. Операция частичного транспонирования выглядит нагляднее, если ее рассматривать через блочное представление. Пусть $\textbf{dim}(H_A) = n$, а $\textbf{dim}(H_B) = m$, тогда матрицу плотности можно записать в следующем виде
+\begin{equation}
+    \rho =
+    \begin{pmatrix}
+        A_{11} & A_{12} & ... & A_{1n} \\
+        A_{21} & A_{22} & ... & A_{2n} \\
+        \vdots &        & \ddots &     \\
+        A_{n1} & A_{n2} & ... & A_{nn}
+    \end{pmatrix},
+\end{equation}
+где $A_{ij}$ матрицы размером $m \times m$. Тогда $\rho^{T_B}$ будет выглядеть следующим образом
+\begin{equation}
+    \rho^{T_B} =
+    \begin{pmatrix}
+        A_{11}^T & A_{12}^T & ... & A_{1n}^T \\
+        A_{21}^T & A_{22}^T & ... & A_{2n}^T \\
+        \vdots &        & \ddots &     \\
+        A_{n1}^T & A_{n2}^T & ... & A_{nn}^T
+    \end{pmatrix}.
+\end{equation}
+
+Теперь рассмотрим конкретный пример двух-кубитное семейство состояний Вернера
+\begin{equation}\label{2-qubit-warner-state}
+\rho = \frac{1}{2(2 + p)} \left(
+I_2 \otimes I_2 + p \sum\limits_{i,j = 0}^{1}\ket{i, j} \bra{j, i}
+\right).
+\end{equation}
+
+В этом случае матрица плотности $\rho$ и её частичное транспонирование $\rho^{T_B}$ будут иметь следующий вид
+\begin{equation}
+    \rho = \frac{1}{4} 
+    \begin{pmatrix}
+        1-p & 0 &  0  & 0 \\
+        0 & p+1 & -2p & 0 \\
+        0 & -2p & p+1 & 0 \\
+        0 & 0 & 0 & 1-p
+    \end{pmatrix}
+\end{equation}
+\begin{equation}
+    \rho^{T_B} = \frac{1}{4} 
+    \begin{pmatrix}
+        1-p & 0 &  0  & -2p \\
+        0 & p+1 &  0 & 0 \\
+        0 & 0 & p+1 & 0 \\
+        -2p & 0 & 0 & 1-p
+    \end{pmatrix}
+\end{equation}

@@ -1,0 +1,118 @@
+%Основная шапка, без которой невозможно собрать документ
+\documentclass[a4paper,14pt,russian]{extreport}		%хотим создать класс документа "статья" с основным шрифтом 12
+\usepackage[utf8]{inputenc}			%в какой кодировке пишем
+\usepackage[T2A]{fontenc}			%какой используем буквенный формат
+\usepackage[russian]{babel}			%на каком языке пишем
+%эти 4 строки должны быть в начале каждого документа в ТеХе, без них документ не соберется. Все что дальше - бонусы для красоты или удобства.
+
+\usepackage[pdftex]{geometry}		%пакет для пользовательской настройки геометрии листа и текста
+\geometry{	paperheight=28.5cm, 	%высота листа
+			paperwidth=21cm, 		%ширина листа
+			top=1.5cm, 				%отступ сверху
+			bottom=1.6cm,			%отступ снизу
+			left=2cm, 				%отступ слева
+			right=2cm, 				%отступ справа
+			headheight=0.8cm, 		%высота колонтикула
+			headsep=0.9cm, 			%отступ от колонтикула
+			footskip=1cm}			%отступ снизу для ссылок\номеров страниц и тд
+
+%Так вызываются пакеты для использования в тексте определенного наполнения. Обычно достаточно вызвать пакет, если его нет в системе, происходит автоматическая скачка с серверов LaTex.
+\usepackage{subfigure}
+\usepackage{amsmath}                %специальные математические функции
+\usepackage{amsfonts}               %специальные математические символы
+\usepackage{graphicx}               %пакет для вставки рисунков
+\usepackage{csquotes} 				%красивые кавычки специальной функцией
+\renewcommand{\sectionmark}[1]{\markboth{#1}{}}
+\newcommand{\cev}[1]{\reflectbox{\ensuremath{\vec{\reflectbox{\ensuremath{#1}}}}}}
+\usepackage{graphicx} % для вставки картинок
+\usepackage{amssymb,amsfonts,amsmath,amsthm} % математические дополнения от АМС
+\usepackage{indentfirst} % отделять первую строку раздела абзацным отступом тоже
+\usepackage[usenames,dvipsnames]{color} % названия цветов
+\usepackage{makecell}
+\usepackage{multirow} % улучшенное форматирование таблиц
+\usepackage{ulem} % подчеркивания
+
+\usepackage{braket}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+
+\usepackage[percent]{overpic}
+
+\usepackage{biblatex} %Imports biblatex package
+\addbibresource{refs.bib} %Import the bibliography file
+\usepackage{bm}
+
+% Полуторный интервал
+\onehalfspacing
+%Функции для определения размеров шрифта. Первая цифра текстовой шрифт, вторая - основной шрифт формул, третья - размер индексов, четвертая - размер индексов у индексов. 
+\DeclareMathSizes{10}{9}{5}{5}          %for 10pt font size
+\DeclareMathSizes{11}{9}{5}{5}         	%for 11pt font size
+\DeclareMathSizes{12}{11}{6}{6}         %for 12pt font size
+
+%Две функции, контролирующие переносы и разрывы строк. Обычно ставлю всегда, не изменяя значений.
+\hyphenpenalty 500
+\fussy
+
+\newcommand{\HRule}{\rule{\linewidth}{0.2mm}} 	%специальная ручная команда для линии в титульнике. В документах без линии не нужна
+
+% custom
+\newtheorem{theorem}{Теорема}
+\newtheorem{definition}{Опр.}
+\newtheorem{lemma}{Лемма}
+\usepackage{bbold}
+
+\usepackage{physics}
+
+\begin{document}
+\begin{center}			
+{\small ФЕДЕРАЛЬНОЕ ГОСУДАРСТВЕННОЕ БЮДЖЕТНОЕ ОБРАЗОВАТЕЛЬНОЕ УЧРЕЖДЕНИЕ ВЫСШЕГО ОБРАЗОВАНИЯ <<МОСКОВСКИЙ ГОСУДАРСТВЕННЫЙ УНИВЕРСИТЕТ имени М.В.ЛОМОНОСОВА>>}
+\end{center}
+\vspace*{-1cm}
+\begin{center}
+\HRule
+\end{center}
+
+\begin{center}
+Физический факультет\\Кафедра квантовой статистики и теории поля\\[5cm]
+\end{center}
+
+\begin{center}
+Дипломная работа\\студента Дмитриева Е.М.\\
+на тему
+\end{center}
+
+\begin{center}
+Асимптотическая сцепленность в квантовых сетях\\[6.6cm]
+\end{center}
+
+\begin{flushright}		
+Научный руководитель: К.В. Антипин
+\end{flushright}
+
+\begin{flushleft}		
+Заведующий кафедрой\\ квантовой статистики\\и теории поля\\профессор Б. И. Садовников
+\end{flushleft}
+
+\thispagestyle{empty}	%убираем номер страницы
+\tableofcontents		%автоматическое создание содержания
+
+\chapter{Введение}
+\input{1-intro}
+
+\chapter{Критерий истинной сцепленности}
+\input{2-genuine-entanglement}
+
+\chapter{Численный алгоритм}
+\input{3-algo}
+
+\chapter{Аналитическая оценка границ сцепленности}
+\input{5-analytic}
+
+\chapter{Результаты}
+\input{4-results}
+
+\chapter{Приложение}
+\input{appendix}
+
+\printbibliography %Prints bibliography
+\end{document}
